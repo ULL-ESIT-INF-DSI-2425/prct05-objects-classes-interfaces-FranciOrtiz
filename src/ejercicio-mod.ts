@@ -208,3 +208,78 @@ export class Bebida extends Comun {
   }
 }
 
+type Alimento_cantidad = [comida:Alimento, cantidad: number];
+type Bebida_cantidad = [bebida:Bebida, cantidad: number];
+
+class Nevera {
+  constructor(private Bebidas: Bebida_cantidad[], private Alimento: Alimento_cantidad[]) {}
+
+  getBebidas(): Bebida_cantidad[] {
+    return this.Bebidas;
+  }
+
+  getAlimento(): Alimento_cantidad[] {
+    return this.Alimento;
+  }
+
+  setBebidas(nuevas_bebidas: Bebida_cantidad[]): void {
+    this.Bebidas = nuevas_bebidas;
+  }
+
+  setAlimento(nuevos_alimentos: Alimento_cantidad[]): void {
+    this.Alimento = nuevos_alimentos;
+  }
+
+  showAlimento(): Alimento_cantidad[] {
+    let resultado: Alimento_cantidad[] = [];
+    this.Alimento.forEach(comida => {
+      if (comida[1] !== 0) {
+        resultado.push(comida);
+      }
+    });
+    return resultado;
+  }
+
+  showBebida(): Bebida_cantidad[] {
+    let resultado: Bebida_cantidad[] =  [];
+    this.Bebidas.forEach(bebida => {
+      if ( bebida[1] !== 0) {
+        resultado.push(bebida);
+      }
+    });
+    return resultado;
+  }
+
+  addAlimento(nuevo_alimento: Alimento_cantidad) {
+    this.Alimento.forEach(comida => {
+      if (comida[0].getIdentificador() === nuevo_alimento[0].getIdentificador()) {
+        comida[1] += nuevo_alimento[1];
+        return 
+      }
+    });
+    this.Alimento.push(nuevo_alimento);
+  }
+
+  addBebida(nueva_bebida: Bebida_cantidad) {
+    this.Bebidas.forEach(bebida => {
+      if (bebida[0].getIdentificador() === nueva_bebida[0].getIdentificador()) {
+        bebida[1] += nueva_bebida[1];
+        return 
+      }
+    });
+    this.Bebidas.push(nueva_bebida);
+  }
+}
+
+let coca_cola = new Bebida("1234", "coca_cola", "riconudo", "A", 580, "Marrón Negrizo");
+let chocapic = new Alimento("1234", "chocapic", "riconudo", "A", 580, "Rugoso");
+let chocapico = new Alimento("12345", "chocapico", "riconudo", "A", 580, "Rugoso");
+let bebidas: Bebida_cantidad[] = [[coca_cola, 2]];
+let alimento: Alimento_cantidad[] = [[chocapic, 3], [chocapico, 0]];
+let nevera = new Nevera(bebidas, alimento);
+
+console.log(nevera.showAlimento());
+console.log(nevera.showBebida());
+
+nevera.addAlimento([chocapico, 6]);
+console.log(nevera.showAlimento());
