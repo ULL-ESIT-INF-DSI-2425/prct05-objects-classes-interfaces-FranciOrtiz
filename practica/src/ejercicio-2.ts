@@ -75,25 +75,3 @@ export class MusicLibrary {
     return this.artists.flatMap(artist => artist.discography.flatMap(album => album.songs)).filter(song => song.name.toLowerCase().includes(name.toLowerCase()));
   }
 }
-
-const song1: Song = { name: "Song A", duration: 210, genres: ["Rock"], isSingle: false, plays: 5000 };
-const song2: Song = { name: "Song B", duration: 180, genres: ["Pop"], isSingle: true, plays: 10000 };
-
-const album1 = new Album("Album 1", 2023, [song1, song2]);
-
-const artist1 = new Artist("Band X", 2000000, [album1]);
-
-const library = new MusicLibrary();
-library.addArtist(artist1);
-
-// Mostrar la biblioteca
-library.displayLibrary();
-
-// Buscar artistas
-console.table(library.searchArtists("Band X"));
-
-// Buscar discos
-console.table(library.searchAlbums("Album 1"));
-
-// Buscar canciones
-console.table(library.searchSongs("Song A"));
